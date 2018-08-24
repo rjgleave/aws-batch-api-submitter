@@ -1,0 +1,9 @@
+{
+    "input": {
+      "jobName": "my-job",
+      "jobDefinition": "arn:aws:batch:us-east-1:786247309603:job-definition/SampleJobDefinition-49e0468e4a867f5:1",
+      "jobQueue": "arn:aws:batch:us-east-1:786247309603:job-queue/SampleJobQueue-5da08f800c56cd4",
+      "wait_time": 60
+    },
+    "roleArn": "arn:aws:iam::786247309603:role/StepFunctionsSample-JobStatusP-StatesExecutionRole-KOG0GGAHZYJ6"
+  }
