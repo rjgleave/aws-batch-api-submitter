@@ -38,9 +38,9 @@ Working Backwards, do the following:
 1. Create the state machine.  The easiest way to do this is to use the online jumpstart which will build it for you.  See instructions here:
 ![Reference Architecture](https://github.com/rjgleave/aws-batch-api-submitter/blob/master/assets/step-function-sample-projects.png)
 
-
-Use the schema to build DynamoDB table.   Make sure you turn on streaming.
-2. Install the lambda to read the dynamodb stream.   It will 
+2. Use the schema to build DynamoDB table.   Make sure you turn on streaming.
+3. Install the lambda to read the dynamodb stream.   You will need to modify it to pass in the input document and ARN of the state machine.    You can test it using the test_streams.json document.
+4. Create the API.  Use the provided mapping document.
 
 
 
