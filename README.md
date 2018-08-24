@@ -3,7 +3,7 @@ Submitting AWS Batch Jobs using API Gateway
 
 This solution illustrates how to trigger batch processes from on-premise systems using an http post action to an API.   This is a useful architecture for combining on-premise and cloud processes together into a single workflow.
 
-![Reference Architecture](https://github.com/rjgleave/aws-tag-groups/blob/master/assets/tag-groups-architecture.png)
+![Reference Architecture](https://github.com/rjgleave/aws-batch-api-submitter/blob/master/assets/trigger-batch-using-api-gateway.png)
 
 In this example, an on-premise process runs, followed by a cloud-based process.  At the completion of the on-premise process, an http message is posted to an api, which saves the transaction in DynamoDB.  A trigger on the dynamoDB table invokes a state machine (AWS Step Functions) which submits the job corresponding to the message.  Step Functions will monitor the job for success or failure, until its completion.   
 
