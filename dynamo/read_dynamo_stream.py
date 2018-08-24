@@ -38,7 +38,7 @@ def lambda_handler(event, context):
             #job_name = processname + RunRequestID
 
             # create the base input document
-            input_document ={"jobName": "APOST-1","jobDefinition": "arn:aws:batch:us-east-1:786247309603:job-definition/SampleJobDefinition-49e0468e4a867f5:1","jobQueue": "arn:aws:batch:us-east-1:786247309603:job-queue/SampleJobQueue-5da08f800c56cd4", "wait_time": 60}
+            input_document ={"jobName": "APOST-1","jobDefinition": "arn:aws:batch:us-east-1:99999999999:job-definition/SampleJobDefinition-49e0468e4a867f5:1","jobQueue": "arn:aws:batch:us-east-1:786247309603:job-queue/SampleJobQueue-5da08f800c56cd4", "wait_time": 60}
             # update the jobname and the state machine name
             state_machine_name = "batch-poller-" + RunRequest["processname"] + '-' + RunRequest["clientname"] + '-' + RunRequest["runRequestID"]
             input_document["jobName"]= RunRequest["processname"] + '-' + RunRequest["clientname"] + '-' + RunRequest["runRequestID"]
@@ -46,9 +46,9 @@ def lambda_handler(event, context):
             print "input document: ", input_document
             print "state machine name: ",state_machine_name
 
-            # start the state machine - passing in the input document and 
+            # start the state machine - passing in the input document and arn
             response = client.start_execution(
-                stateMachineArn='arn:aws:states:us-east-1:786247309603:stateMachine:JobStatusPollerStateMachine-Mg9JogmrbUlY',
+                stateMachineArn='arn:aws:states:us-east-1:999999999999:stateMachine:JobStatusPollerStateMachine-Mg9JogmrbUlY',
                 name=state_machine_name,
                 input= json.dumps(input_document)
             )

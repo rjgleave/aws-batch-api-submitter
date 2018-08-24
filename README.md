@@ -33,7 +33,14 @@ transaction table in dynamoDB.  It includes:
 Setup Instructions
 ------------------
 
-1. 
+Working Backwards, do the following:
+
+1. Create the state machine.  The easiest way to do this is to use the online jumpstart which will build it for you.  See instructions here:
+![Reference Architecture](https://github.com/rjgleave/aws-batch-api-submitter/blob/master/assets/step-function-sample-projects.png)
+
+
+Use the schema to build DynamoDB table.   Make sure you turn on streaming.
+2. Install the lambda to read the dynamodb stream.   It will 
 
 
 
