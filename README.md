@@ -5,7 +5,10 @@ This solution illustrates how to trigger batch processes from on-premise systems
 
 ![Reference Architecture](https://github.com/rjgleave/aws-batch-api-submitter/blob/master/assets/trigger-batch-using-api-gateway.png)
 
+![](https://github.com/rjgleave/aws-batch-api-submitter/blob/master/assets/Trigger-AWS-Batch-Integration-Job-Using-API-Gateway.png)
+
 In this example, an on-premise process runs, followed by a cloud-based process.  At the completion of the on-premise process, an http message is posted to an api, which saves the transaction in DynamoDB.  A trigger on the dynamoDB table invokes a state machine (AWS Step Functions) which submits the job corresponding to the message.  Step Functions will monitor the job for success or failure, until its completion.   
+
 
 What's Here
 -----------
@@ -13,18 +16,19 @@ What's Here
 This repo includes:
 
 1. README.md - this file
-2. FOLDER: dynamo - this contains code to help build the tag group table in dynamoDB.  It includes:
-    *   createTagGroupTable.py - a program to create the base dynamo table
-    *   DataEntryTemplate.xlsx - an Excel template with sample data for the dynamo table
-    *   sample-data.csv - a CSV extract of the excel file above
-    *   sample-data.json - a JSON equivalent to the CSV file above
-    *   loadTagGroupTable.py - a program to load the dynamodb table with sample data
-3. FOLDER: policy - contains a json file for defining a custom policy:  custom-tag-group-policy.json
-4. FOLDER: tag-builder-direct  - It includes:
-    *   tagbuilder.py - the main lambda program to update resources with tags.  
-5. FOLDER: tag-builder-lambda - It includes:
-    *   tagbuilder-paginate.py - same as lambda program above, except can be called from command line.
-6. FOLDER: api-throttler - contains the lambda which is triggered by SQS.  This performs the call to the AWS ResourceGroupsAPI to update tags if you are operating in de-coupled mode (see the SQS-ENABLED environment variable below)
+2. FOLDER: dynamo - this contains code to help build the sample 
+transaction table in dynamoDB.  It includes:
+    *   schema.json - an example of the dynamoDB schema data structure
+    *   read_dynamo_stream.py - the lambda program which reads the dynamodb streams
+    *   test_streams.json - a sample stream file for testing the lambda above.
+3. FOLDER: api-gateway - contains templates to help build and test the API REST interface
+    *   api_gateway_mapping_template.json - this is the mapping document used to create the proxy api for the state machine service.
+    *   test_message.json - copy the json document and use to test the API.
+4. FOLDER: state_machine  - components to build the state machine
+    *   JobStatusPoller.py - a lambda to poll the status of batch jobs.
+    *    SubmitJobFunction.py - lambda function to submit a batch job. 
+    *   JobStatusPollerStateMachine.json - definition of the state machine
+    *   input-template.json - the document used to submit the state machine
 
 Setup Instructions
 ------------------
@@ -34,6 +38,9 @@ Setup Instructions
 
 
 __Additional Resources__
+
+Blog: Using Amazon API Gateway as a proxy for DynamoDB
+https://aws.amazon.com/blogs/compute/using-amazon-api-gateway-as-a-proxy-for-dynamodb/
 
 SWS Step Functions
 https://aws.amazon.com/step-functions/

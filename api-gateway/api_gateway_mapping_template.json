@@ -1,0 +1,110 @@
+API GATEWAY Mapping Template
+{ 
+  "TableName": "RunRequests",
+  "Item": {
+"runRequestID": {
+          "S": "$context.requestId"
+          },
+      "processname": {
+          "S": "$input.path('$.processname')"
+          },
+      "clientname": {
+          "S": "$input.path('$.clientname')"
+      },
+      "timestamp": {
+          "S": "$context.requestTime"
+      }
+  }
+
+  =======================================================
+# note: the timestamp field above...  you can use the context variable (requestTime) value to
+        populate it, but it will fail if you try to test it in the API Gateway console (see the 
+        notes below)
+
+
+We are trying to add the $context. requestTime in our API gateway integration, yet the timestamp seems to be unavailable and coming back as empty. Is the requestTime implementation currently live in all regions?
+
+e.g. integration:
+{
+"StreamName": "$streamName",
+"requestTime" : "$context.requestTime",
+"stage" : "$context.stage",
+"request_id" : "$context.requestId",
+"api_id" : "$context.apiId",
+"resource_path" : "$context.resourcePath",
+"resource_id" : "$context.resourceId",
+"http_method" : "$context.httpMethod",
+"source_ip" : "$context.identity.sourceIp",
+"user-agent" : "$context.identity.userAgent",
+"account_id" : "$context.identity.accountId",
+"api_key" : "$context.identity.apiKey",
+"caller" : "$context.identity.caller",
+"user" : "$context.identity.user",
+"user_arn" : "$context.identity.userArn"
+}
+
+{
+"StreamName": "stream-staging",
+"requestTime" : "",
+"stage" : "test-invoke-stage",
+"request_id" : "test-invoke-request",
+"api_id" : "...",
+"resource_path" : "/event",
+"resource_id" : "6fmqdn",
+"http_method" : "POST",
+"source_ip" : "test-invoke-source-ip",
+"user-agent" : "Apache-HttpClient/4.5.x (Java/1.8.0_144)",
+"account_id" : "...",
+"api_key" : "test-invoke-api-key",
+"caller" : "...",
+"user" : "..."
+}
+
+Edited by: virashaws on Nov 28, 2017 5:01 AM
+
+Edited by: virashaws on Nov 28, 2017 5:02 AM
+
+Edited by: virashaws on Nov 28, 2017 6:24 AM
+Re: Feature Request: Timestamp - Mapping Template Variable
+Posted by:   jwaataws
+Posted on: Nov 28, 2017 10:11 AM
+in response to: virashaws in response to: virashaws
+ 	Click to reply to this thread	Reply
+Hi virashaws,
+
+Did you try it with the test call in API Gateway Console? In that case, it won't be available. At this time, it is only available when the API has been deployed and API call was invoked to deployed stage. I confirmed this behavior, and put it on our backlog to make it available in test call phase as well.
+
+'
+
+Should look like this:[
+  {
+    ...,
+    "requestContext": {
+        "requestTime": "20/Feb/2018:22:48:57 +0000",
+        "path": "/test/",
+        "accountId": "123456789012",
+        "protocol": "HTTP/1.1",
+        "resourceId": "yx5mhem7ye",
+        "stage": "test",
+        "requestTimeEpoch": 1519166937665,
+        "requestId": "3c3ecbaa-1690-11e8-ae31-8f39f1d24afd",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": "123456789012",
+            "cognitoIdentityId": null,
+            "caller": "AIDAJ........4HCKVJZG",
+            "sourceIp": "51.240.196.104",
+            "accessKey": "IAM_user_access_key",
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": "arn:aws:iam::123456789012:user/alice",
+            "userAgent": "PostmanRuntime/7.1.1",
+            "user": "AIDAJ........4HCKVJZG"
+        },
+        "resourcePath": "/",
+        "httpMethod": "GET",
+        "apiId": "qr2gd9cfmf"
+    },
+    ...
+}
+]

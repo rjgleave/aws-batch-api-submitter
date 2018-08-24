@@ -1,8 +1,8 @@
-
+Resource: /runrequests
+HTTP Method: POST
+HTTP Request Body:
 {
   "processname":   "APOST",
   "clientname": "2Sigma",
   "timestamp":  "2018-8-31 12:59:59"
 }
-
-# key: runRequestID
