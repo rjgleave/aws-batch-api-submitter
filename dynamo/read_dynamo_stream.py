@@ -37,7 +37,7 @@ def lambda_handler(event, context):
             # build job name
             #job_name = processname + RunRequestID
 
-            # create the base input document
+            # create the base state machine input document
             input_document ={"jobName": "APOST-1","jobDefinition": "arn:aws:batch:us-east-1:99999999999:job-definition/SampleJobDefinition-49e0468e4a867f5:1","jobQueue": "arn:aws:batch:us-east-1:786247309603:job-queue/SampleJobQueue-5da08f800c56cd4", "wait_time": 60}
             # update the jobname and the state machine name
             state_machine_name = "batch-poller-" + RunRequest["processname"] + '-' + RunRequest["clientname"] + '-' + RunRequest["runRequestID"]
