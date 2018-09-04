@@ -4,7 +4,7 @@
     "States": {
       "Submit Batch Job": {
         "Type": "Task",
-        "Resource": "arn:aws:lambda:us-east-1:786247309603:function:StepFunctionsSample-JobStatusPol-SubmitJobFunction-1TM4KSKQ7MP4I",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:StepFunctionsSample-JobStatusPol-SubmitJobFunction-1TM4KSKQ7MP4I",
         "ResultPath": "$.guid",
         "Next": "Wait X Seconds"
       },
@@ -15,7 +15,7 @@
       },
       "Get Job Status": {
         "Type": "Task",
-        "Resource": "arn:aws:lambda:us-east-1:786247309603:function:StepFunctionsSample-JobStatusPoll-CheckJobFunction-1HDT4XT32RFW6",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:StepFunctionsSample-JobStatusPoll-CheckJobFunction-1HDT4XT32RFW6",
         "Next": "Job Complete?",
         "InputPath": "$.guid",
         "ResultPath": "$.status"
@@ -43,7 +43,7 @@
       },
       "Get Final Job Status": {
         "Type": "Task",
-        "Resource": "arn:aws:lambda:us-east-1:786247309603:function:StepFunctionsSample-JobStatusPoll-CheckJobFunction-1HDT4XT32RFW6",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:StepFunctionsSample-JobStatusPoll-CheckJobFunction-1HDT4XT32RFW6",
         "InputPath": "$.guid",
         "End": true
       }
